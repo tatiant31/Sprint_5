@@ -1,6 +1,6 @@
 from selenium.webdriver.common.by import By
 
-class AuthorisationLocators:
+class TestLocators:
     #==================== Кнопки
     # "Вход и регистрация"
     LOGIN_BUTTON= (By.XPATH, '//button[contains(text(), "Вход и регистрация")]')
