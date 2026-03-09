@@ -10,6 +10,7 @@ class TestLocators:
     CREATE_ACCOUNT_BUTTON = (By.XPATH,'//button[contains(text(), "Создать аккаунт")]')
     # "Разместить объявления"
     PLACE_ADVERTISEMENT_BUTTON = (By.XPATH, "//button[contains(text(), 'Разместить объявление')]")
+    PLACE_ADVERTISEMENT_TEXT = (By.XPATH, "//*[contains(text(), 'Чтобы разместить объявление, авторизуйтесь')]")
     # Войти
     ENTER_BUTTON = (By.XPATH, "//button[contains(text(), 'Войти')]")
     # Аватар
@@ -28,13 +29,11 @@ class TestLocators:
     # поле User
     USER_NAME = (By.CSS_SELECTOR, "h3.profileText.name")
     #===================== Красная полоса на полях
-    EMAIL_RED_FIELD = (By.XPATH,
-        "//input[@name='email']/parent::div[contains(@class, 'input_inputError__fLUP9')]")
-    PASSWORD_RED_FIELD = (By.XPATH,
-        "//input[@name='password']/parent::div[contains(@class, 'input_inputError__fLUP9')]")
-    SUBMIT_RED_FIELD = (By.XPATH,
-        "//input[contains(@name, 'submitPassword')]/parent::div[contains(@class, 'input_inputError__fLUP9')]")
-    EMAIL_ERROR = (By.CSS_SELECTOR, ".input_span__yWPqB")
+    EMAIL_RED_FIELD = (By.CSS_SELECTOR, "div.input_inputError__fLUP9 input[name='email']")
+    PASSWORD_RED_FIELD = (By.CSS_SELECTOR, "div.input_inputError__fLUP9 input[name='password']")
+    SUBMIT_RED_FIELD = (By.CSS_SELECTOR,"div.input_inputError__fLUP9 input[name='submitPassword']")
+    EMAIL_ERROR = (By.CSS_SELECTOR,"div[style*='max-width: 472px'] span.input_span__yWPqB")
+
     #================= Окно ввода объявления
     # окно объявления
     WINDOW_ADVERTISEMENT = (By.CSS_SELECTOR, ".homePage_modal__zSdUB")
@@ -49,9 +48,14 @@ class TestLocators:
     #Категория
     ADV_CATEGORY_INPUT = (By.XPATH, "//input[@name='category' and @readonly]")
     ADV_CATEGORY_SELECT =(By.XPATH, "//*[contains(text(), 'Авто')]")
+    ADV_AVTO = (By.XPATH, "//*[contains(text(), 'Авто')][1]")
+    # Город
     ADV_CITY = (By.XPATH, "//input[@name='city']")
     ADV_CITY_SELECT = (By.XPATH, "//*[contains(text(), 'Москва')]")
-
+    ADV_MOSCOW = (By.XPATH, "//*[contains(text(), 'Москва')][1]")
+    # RadioButton "Новый"
+    #ADV_NEW = (By.XPATH, "//label[contains(text(), 'Новый')]")
+    ADV_NEW = (By.XPATH, "//input[@type='radio']")
 
 
 

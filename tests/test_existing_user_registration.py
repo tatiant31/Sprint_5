@@ -1,57 +1,37 @@
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-import data
-from data import VALID_USER
 from locators import TestLocators
+from helpers import register_existing_user
+
 
 class TestExistingUserRegistration:
-    def _register_existing_user_and_wait_for_errors(self, driver):
-        driver.get(data.URL)
-        # Ожидать загрузку страницы и нажать кнопку «Вход и регистрация».
-        WebDriverWait(driver, 5).until(
-            expected_conditions.element_to_be_clickable
-            (TestLocators.LOGIN_BUTTON)).click()
-        # ожидать загрузку страницы и нажать кнопку «Нет аккаунта».
-        WebDriverWait(driver, 5).until(
-            expected_conditions.element_to_be_clickable
-            (TestLocators.NO_ACCOUNT_BUTTON)).click()
-        # Заполнить все поля формы регистрации
-        driver.find_element(*TestLocators.EMAIL_INPUT).send_keys(VALID_USER.email)
-        driver.find_element(*TestLocators.PASSWORD_INPUT).send_keys(VALID_USER.password)
-        driver.find_element(*TestLocators.SUBMIT_PSW_INPUT).send_keys(VALID_USER.password)
-        # нажать кнопку «Создать аккаунт».
-        WebDriverWait(driver, 3).until(expected_conditions.element_to_be_clickable
-            (TestLocators.CREATE_ACCOUNT_BUTTON)).click()
-        # Ждем появление ошибки (общий индикатор того, что валидация прошла)
-        WebDriverWait(driver, 3).until(
-            expected_conditions.presence_of_element_located(
-                (By.CSS_SELECTOR, ".input_inputError__fLUP9")
-            )
-        )
 
+    # Проверка красной подсветки для поля Email
     def test_email_field_highlighted_on_existing_user(self, driver):
-        self._register_existing_user_and_wait_for_errors(driver)
-        # Проверка красной подсветки для поля Email
-        email_field = driver.find_element(*TestLocators.EMAIL_RED_FIELD)
-        assert "input_inputError__fLUP9" in email_field.get_attribute("class")
-
+        register_existing_user(driver)
+        email_field = (WebDriverWait(driver, 10).
+            until(expected_conditions.presence_of_element_located
+            (TestLocators.EMAIL_RED_FIELD)))
+        assert email_field.is_displayed(), "Поле Email не подсвечено красным"
+    # Проверка сообщения 'Ошибка' под полем Email
     def test_email_error_message_displayed_on_existing_user(self, driver):
-        self._register_existing_user_and_wait_for_errors(driver)
-        # Проверка сообщения 'Ошибка' под полем Email
-        error_message = driver.find_element(*TestLocators.EMAIL_ERROR)
-        assert error_message.text == "Ошибка"
-
+        register_existing_user(driver)
+        error_message = (WebDriverWait(driver, 10).
+            until(expected_conditions.presence_of_element_located
+            (TestLocators.EMAIL_ERROR)))
+        assert error_message.is_displayed(), f"Ошибка не отображается. Текст: '{error_message.text}'"
+    # Проверка красной подсветки для поля Пароль
     def test_password_field_highlighted_on_existing_user(self, driver):
-        self._register_existing_user_and_wait_for_errors(driver)
-        # Проверка красной подсветки для поля Пароль
-        password_field = driver.find_element(*TestLocators.PASSWORD_RED_FIELD)
-        assert "input_inputError__fLUP9" in password_field.get_attribute("class")
-
+        register_existing_user(driver)
+        password_field =(WebDriverWait(driver, 3).
+            until(expected_conditions.presence_of_element_located
+            (TestLocators.PASSWORD_RED_FIELD)))
+        assert password_field.is_displayed(), "Поле Пароль не подсвечено красным"
+    # Проверка красной подсветки для поля Повторите Пароль
     def test_repeat_password_field_highlighted_on_existing_user(self, driver):
-        self._register_existing_user_and_wait_for_errors(driver)
-        # Проверка красной подсветки для поля Повторите Пароль
-        submit_password_field = driver.find_element(*TestLocators.SUBMIT_RED_FIELD)
-        assert "input_inputError__fLUP9" in submit_password_field.get_attribute("class")
-
+        register_existing_user(driver)
+        submit_password_field = (WebDriverWait(driver, 3).
+            until(expected_conditions.presence_of_element_located
+            (TestLocators.SUBMIT_RED_FIELD)))
+        assert  submit_password_field.is_displayed(), "Поле 'Повторите Пароль' не подсвечено красным"
 

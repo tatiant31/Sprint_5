@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 
-#url учебного сервиса Доска
-URL = 'https://qa-desk.stand.praktikum-services.ru/'
+# Класс с URL
+@dataclass(frozen=True)
+class Urls:
+    #url учебного сервиса Доска
+    BASE: str = 'https://qa-desk.stand.praktikum-services.ru/'
 
 @dataclass
 class RegData:
@@ -21,3 +24,4 @@ class AdData:
 VALID_USER = RegData(email="tester3@mail.ru", password="123")
 INVALID_USER = RegData(email="invalid", password="123")
 TEST_AD = AdData(title="Объявление", description="Описание в объявлении", price="15000")
+URL = Urls.BASE

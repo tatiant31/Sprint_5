@@ -10,13 +10,10 @@ class TestCreateAdUnauthorizedUser():
         WebDriverWait(driver, 5).until(
             expected_conditions.element_to_be_clickable
             (TestLocators.PLACE_ADVERTISEMENT_BUTTON)).click()
-        # заголовком «Чтобы разместить объявление, авторизуйтесь»
-        WebDriverWait(driver, 5).until(
-            expected_conditions.presence_of_element_located
-            (TestLocators.WINDOW_ADVERTISEMENT))
         # заголовок «Чтобы разместить объявление, авторизуйтесь»
-        modal_title = driver.find_element(*TestLocators.WINDOW_TITLE)
-        modal_title = driver.find_element(*TestLocators.WINDOW_TITLE)
-        assert modal_title.text == "Чтобы разместить объявление, авторизуйтесь", \
-            "Неправильный заголовок модального окна"
+        modal_title = WebDriverWait(driver, 5).until(
+            expected_conditions.presence_of_element_located
+            (TestLocators.PLACE_ADVERTISEMENT_TEXT))
+        # Проверяем, что элемент с заголовком отображается
+        assert modal_title.is_displayed(), "Заголовок модального окна не отображается"
 
