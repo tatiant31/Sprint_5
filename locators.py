@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from data import TEST_AD
 
 class TestLocators:
     #==================== Кнопки
@@ -33,7 +34,6 @@ class TestLocators:
     PASSWORD_RED_FIELD = (By.CSS_SELECTOR, "div.input_inputError__fLUP9 input[name='password']")
     SUBMIT_RED_FIELD = (By.CSS_SELECTOR,"div.input_inputError__fLUP9 input[name='submitPassword']")
     EMAIL_ERROR = (By.CSS_SELECTOR,"div[style*='max-width: 472px'] span.input_span__yWPqB")
-
     #================= Окно ввода объявления
     # окно объявления
     WINDOW_ADVERTISEMENT = (By.CSS_SELECTOR, ".homePage_modal__zSdUB")
@@ -54,8 +54,14 @@ class TestLocators:
     ADV_CITY_SELECT = (By.XPATH, "//*[contains(text(), 'Москва')]")
     ADV_MOSCOW = (By.XPATH, "//*[contains(text(), 'Москва')][1]")
     # RadioButton "Новый"
-    #ADV_NEW = (By.XPATH, "//label[contains(text(), 'Новый')]")
-    ADV_NEW = (By.XPATH, "//input[@type='radio']")
+    ADV_NEW = (By.CSS_SELECTOR, "input[type='radio'][name='condition'][value='Новый']")
+
+    LOADER_TIME = (By.CLASS_NAME, "loader")
+
+   # Объявление
+    AVD_CARDS = (By.XPATH, "//div[contains(@class, 'card')]")
+    # Элементы внутри карточки
+    AVD_TITLE = (By.CSS_SELECTOR, "div.about h2.h2")  # Заголовок объявления
 
 
 

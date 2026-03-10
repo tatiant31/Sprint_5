@@ -5,19 +5,18 @@ class TestUserRegistration:
     # Проверяет, что кнопка «Разместить объявление» отображается после успешной регистрации
     def test_place_advertisement_button_displayed_after_registration(self, driver):
         register_new_user(driver)
-        WebDriverWait(driver, 5).until(
+        place_ad_btn = WebDriverWait(driver, 5).until(
             expected_conditions.visibility_of_element_located
             (TestLocators.PLACE_ADVERTISEMENT_BUTTON))
-        assert True, "Кнопка 'Разместить объявление' отображается после входа"
+        assert place_ad_btn.text == "Разместить объявление", "Неверный текст кнопки"
 
     def  test_avatar_button_displayed_after_registration(self, driver):
         #Проверяет, что кнопка аватара отображается после успешной регистрации
         register_new_user(driver)
         # Проверить кнопку аватара есть на главной странице
-        WebDriverWait(driver, 5).until(
-            expected_conditions.visibility_of_element_located
-            (TestLocators.AVATAR_BUTTON))
-        assert True, "Кнопка аватара отображается после входа"
+        avatar_element = WebDriverWait(driver, 10).until(
+            expected_conditions.element_to_be_clickable(TestLocators.AVATAR_BUTTON))
+        assert avatar_element.is_displayed(), "Аватар не отображается"
 
     def test_user_name_displayed_after_registration(self, driver):
         #Проверяет, что имя пользователя 'User.' отображается после успешной регистрации

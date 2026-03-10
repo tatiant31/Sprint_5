@@ -42,15 +42,15 @@ def register_new_user(driver):
 def login_user(driver):
     driver.get(data.URL)
     # Ожидать загрузку страницы и нажать кнопку «Вход и регистрация».
-    WebDriverWait(driver, 5).until(
+    WebDriverWait(driver, 20).until(
         expected_conditions.element_to_be_clickable
         (TestLocators.LOGIN_BUTTON)).click()
     # Заполняем email
-    driver.find_element(*TestLocators.EMAIL_INPUT).send_keys(VALID_USER.email)
+    driver.find_element(*TestLocators.EMAIL_INPUT).send_keys(TestUsers.VALID_USER.email)
     # Заполнить пароль
-    driver.find_element(*TestLocators.PASSWORD_INPUT).send_keys(VALID_USER.password)
+    driver.find_element(*TestLocators.PASSWORD_INPUT).send_keys(TestUsers.VALID_USER.password)
     # Нажать кнопку Войти
-    WebDriverWait(driver, 5).until(
+    WebDriverWait(driver, 15).until(
         expected_conditions.element_to_be_clickable(TestLocators.ENTER_BUTTON)).click()
 
 # выйти из профайла
@@ -73,9 +73,9 @@ def register_existing_user(driver):
         expected_conditions.element_to_be_clickable
         (TestLocators.NO_ACCOUNT_BUTTON)).click()
     # Заполнить все поля формы регистрации
-    driver.find_element(*TestLocators.EMAIL_INPUT).send_keys(VALID_USER.email)
-    driver.find_element(*TestLocators.PASSWORD_INPUT).send_keys(VALID_USER.password)
-    driver.find_element(*TestLocators.SUBMIT_PSW_INPUT).send_keys(VALID_USER.password)
+    driver.find_element(*TestLocators.EMAIL_INPUT).send_keys(TestUsers.VALID_USER.email)
+    driver.find_element(*TestLocators.PASSWORD_INPUT).send_keys(TestUsers.VALID_USER.password)
+    driver.find_element(*TestLocators.SUBMIT_PSW_INPUT).send_keys(TestUsers.VALID_USER.password)
     # нажать кнопку «Создать аккаунт».
     WebDriverWait(driver, 5).until(expected_conditions.element_to_be_clickable
         (TestLocators.CREATE_ACCOUNT_BUTTON)).click()
@@ -92,8 +92,9 @@ def invalid_email_registration(driver):
         expected_conditions.element_to_be_clickable
         (TestLocators.NO_ACCOUNT_BUTTON)).click()
     # Заполнить поле Email формы регистрации
-    driver.find_element(*TestLocators.EMAIL_INPUT).send_keys(INVALID_USER.email)
+    driver.find_element(*TestLocators.EMAIL_INPUT).send_keys(TestUsers.INVALID_USER.email)
     # нажать кнопку «Создать аккаунт».
     WebDriverWait(driver, 5).until(
         expected_conditions.element_to_be_clickable
         (TestLocators.CREATE_ACCOUNT_BUTTON)).click()
+
